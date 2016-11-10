@@ -1,13 +1,12 @@
 require 'omniauth'
 require 'yoti'
-require 'pry'
 
 module OmniAuth
   module Strategies
     class Yoti
       include OmniAuth::Strategy
 
-      option :config, [:application_id, :client_sdk_id, :key_file_path]
+      option :config, [:application_id, :client_sdk_id, :key_file_path, :key]
 
       def request_phase
         redirect "https://www.yoti.com/connect/#{options.config.first.application_id}"
@@ -34,8 +33,9 @@ module OmniAuth
 
       def callback_phase
         ::Yoti.configure do |config|
-          config.client_sdk_id = options.config.first.client_sdk_id
-          config.key_file_path = options.config.first.key_file_path
+          config.client_sdk_id = options.config.first['client_sdk_id']
+          config.key_file_path = options.config.first['key_file_path']
+          config.key = options.config.first['key']
         end
 
         token = Rack::Utils.parse_nested_query(request.query_string)['token']
