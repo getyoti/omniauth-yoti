@@ -1,10 +1,16 @@
-# Omniauth::Yoti
+# OmniAuth Yoti
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/omniauth/yoti`. To experiment with that code, run `bin/console` for an interactive prompt.
+This gem contains the Yoti strategy for OmniAuth.
 
-TODO: Delete this and the text above, and describe your gem
+## Before You Begin
 
-## Installation
+You should have already installed OmniAuth into your app. If not, read the [OmniAuth README](https://github.com/omniauth/omniauth) to get started.
+
+Now sign in into the [Yoti dashboard](https://www.yoti.com/dashboard/login) and create an application. Take note of your Application ID and Yoti client SDK ID because that is what your web application will use to authenticate against the Yoti API. Make sure to set a callback URL and download the pem key.
+
+An Ruby on Rails example app that implements the Yoti OmniAuth strategy can be found in [Yoti Web Labs](https://github.com/lampkicking/yoti-web-labs/tree/master/voting-app)
+
+## Using This Strategy
 
 Add this line to your application's Gemfile:
 
@@ -20,22 +26,58 @@ Or install it yourself as:
 
     $ gem install omniauth-yoti
 
-## Usage
+## Configuration
 
-TODO: Write usage instructions here
+Yoti client initialisation looks like this:
 
-## Development
+```ruby
+require 'omniauth-yoti'
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+Rails.application.config.middleware.use OmniAuth::Builder do
+  provider :yoti, config: [
+    application_id: ENV['YOTI_APPLICATION_ID'],
+    client_sdk_id: ENV['YOTI_CLIENT_SDK_ID'],
+    key_file_path: ENV['YOTI_KEY_FILE_PATH']
+  ]
+end
+```
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+`YOTI_APPLICATION_ID` -  found on the *Integrations* settings page, under the Login button section.
 
-## Contributing
+`YOTI_CLIENT_SDK_ID` - found on the *Integrations* settings page
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/omniauth-yoti.
+`YOTI_KEY_FILE_PATH` - the full path to your security key downloaded from the *Keys* settings page (e.g. /Users/developer/access-security.pem)
 
+If you don't have access to the file system to store the pem file, you can replace `key_file_path` with `key`, that stores a string with the content of the secret key (`key: "-----BEGIN RSA PRIVATE KEY-----\nMIIEp..."`).
+
+The configuration values are documented in the [Yoti gem repository](https://github.com/lampkicking/yoti-sdk-server-ruby#configuration).
+
+## Authentication
+
+A call to `/auth/yoti/callback` will open the Yoti authentication page, and after a sucessful authentication, you will be redirected to the callback URL from your Yoti dasboard. The auth hash will be available in `request.env['omniauth.auth']`:
+
+```ruby
+{
+       "provider" => "yoti",
+            "uid" => "mHvpV4...",
+           "info" => {
+        "name" => "mHvpV4Mm+yMb..."
+    },
+    "credentials" => {},
+          "extra" => {
+                "photo" => "data:image/jpeg;base64,/9j/2wCEAAMCAg...",
+          "given_names" => "Given Name",
+          "family_name" => "Family Name",
+        "mobile_number" => "07474747474",
+        "date_of_birth" => nil,
+              "address" => nil,
+               "gender" => nil,
+          "nationality" => nil
+    }
+}
+
+```
 
 ## License
 
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
-
