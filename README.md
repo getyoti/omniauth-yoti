@@ -52,7 +52,7 @@ end
 
 If you don't have access to the file system to store the pem file, you can replace `key_file_path` with `key`, that stores a string with the content of the secret key (`key: "-----BEGIN RSA PRIVATE KEY-----\nMIIEp..."`).
 
-The configuration values are documented in the [Yoti gem repository](https://github.com/lampkicking/yoti-sdk-server-ruby#configuration).
+The configuration values are documented in the [Yoti gem repository](https://github.com/getyoti/ruby#configuration).
 
 ## Authentication
 
