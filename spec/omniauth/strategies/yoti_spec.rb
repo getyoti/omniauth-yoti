@@ -52,13 +52,68 @@ describe OmniAuth::Strategies::Yoti do
   end
 
   describe '#extra' do
-    it 'has the correct photo' do
-      selfie = File.read('spec/fixtures/selfie.txt', encoding: 'utf-8')
-      expect(subject.extra[:photo]).to eql(selfie)
+    context 'when using a mock request' do
+      it 'has the correct photo' do
+        selfie = File.read('spec/fixtures/selfie.txt', encoding: 'utf-8')
+        expect(subject.extra[:photo]).to eql(selfie)
+      end
+
+      it 'has the correct phone number' do
+        expect(subject.extra[:mobile_number]).to eql('+447474747474')
+      end
     end
 
-    it 'has the correct phone number' do
-      expect(subject.extra[:mobile_number]).to eql('+447474747474')
+    context 'when using a mock object' do
+      before do
+        allow(subject).to receive(:yoti_user_profile).and_return(raw_info_hash)
+      end
+
+      it 'has the correct selfie' do
+        expect(subject.extra[:photo]).to eql('photo.png')
+      end
+
+      it 'has the correct given names' do
+        expect(subject.extra[:given_names]).to eql('Given Names')
+      end
+
+      it 'has the correct family name' do
+        expect(subject.extra[:family_name]).to eql('Family Name')
+      end
+
+      it 'has the correct mobile number' do
+        expect(subject.extra[:mobile_number]).to eql('07474747474')
+      end
+
+      it 'has the correct date of birth' do
+        expect(subject.extra[:date_of_birth]).to eql('2000.12.12')
+      end
+
+      it 'has the correct address' do
+        expect(subject.extra[:address]).to eql('WC2N 4JH')
+      end
+
+      it 'has the correct gender' do
+        expect(subject.extra[:gender]).to eql('male')
+      end
+
+      it 'has the correct nationality' do
+        expect(subject.extra[:nationality]).to eql('British')
+      end
     end
+  end
+
+  private
+
+  def raw_info_hash
+    {
+      'selfie' => 'photo.png',
+      'given_names' => 'Given Names',
+      'family_name' => 'Family Name',
+      'phone_number' => '07474747474',
+      'date_of_birth' => '2000.12.12',
+      'post_code' => 'WC2N 4JH',
+      'gender' => 'male',
+      'nationality' => 'British'
+    }
   end
 end
