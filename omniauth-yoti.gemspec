@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ['vasile.zaremba@yoti.com']
 
   spec.summary       = 'Yoti strategy for OmniAuth'
-  spec.homepage      = 'TODO: Put your gem website or public repo URL here.'
+  spec.homepage      = 'https://github.com/getyoti/omniauth-yoti'
   spec.license       = 'MIT'
 
   spec.files         = `git ls-files -z`.split("\x0").reject do |f|
@@ -18,8 +18,10 @@ Gem::Specification.new do |spec|
   end
   spec.require_paths = ['lib']
 
+  spec.required_ruby_version = '>= 2'
+
   spec.add_dependency 'omniauth', '~> 1.3'
-  spec.add_dependency 'yoti'
+  spec.add_dependency 'yoti', '~> 1.0'
 
   spec.add_development_dependency 'bundler', '~> 1.13'
   spec.add_development_dependency 'rake', '~> 10.0'
