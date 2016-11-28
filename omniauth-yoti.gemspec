@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
 
   spec.summary       = 'Yoti strategy for OmniAuth'
   spec.homepage      = 'https://github.com/getyoti/omniauth-yoti'
-  spec.license       = 'MIT'
+  spec.license       = 'Proprietary'
 
   spec.files         = `git ls-files -z`.split("\x0").reject do |f|
     f.match(%r{^(test|spec|features)/})
