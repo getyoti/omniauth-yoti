@@ -7,7 +7,7 @@ Gem::Specification.new do |spec|
   spec.name          = 'omniauth-yoti'
   spec.version       = Omniauth::Yoti::VERSION
   spec.authors       = ['Vasile Zaremba']
-  spec.email         = ['vasile.zaremba@yoti.com']
+  spec.email         = ['tech@yoti.com']
 
   spec.summary       = 'Yoti strategy for OmniAuth'
   spec.homepage      = 'https://github.com/getyoti/omniauth-yoti'
@@ -18,14 +18,14 @@ Gem::Specification.new do |spec|
   end
   spec.require_paths = ['lib']
 
-  spec.required_ruby_version = '>= 2'
+  spec.required_ruby_version = '>= 2.1.9'
 
-  spec.add_dependency 'omniauth', '~> 1.3'
+  spec.add_dependency 'omniauth', '~> 1.6'
   spec.add_dependency 'yoti', '~> 1.0'
 
   spec.add_development_dependency 'bundler', '~> 1.13'
-  spec.add_development_dependency 'rake', '~> 10.0'
-  spec.add_development_dependency 'rspec', '~> 3.0'
-  spec.add_development_dependency 'simplecov'
-  spec.add_development_dependency 'webmock'
+  spec.add_development_dependency 'rake', '~> 12.0'
+  spec.add_development_dependency 'rspec', '~> 3.5'
+  spec.add_development_dependency 'simplecov', '~> 0.14'
+  spec.add_development_dependency 'webmock', '~> 2.3'
 end
