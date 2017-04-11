@@ -17,12 +17,13 @@ module OmniAuth
 
       def extra
         @raw_info ||= {
-          photo: yoti_user_profile['selfie'],
+          selfie: yoti_user_profile['selfie'],
           given_names: yoti_user_profile['given_names'],
           family_name: yoti_user_profile['family_name'],
-          mobile_number: yoti_user_profile['phone_number'],
+          phone_number: yoti_user_profile['phone_number'],
+          email_address: yoti_user_profile['email_address'],
           date_of_birth: yoti_user_profile['date_of_birth'],
-          address: yoti_user_profile['post_code'],
+          postal_address: yoti_user_profile['postal_address'],
           gender: yoti_user_profile['gender'],
           nationality: yoti_user_profile['nationality']
         }

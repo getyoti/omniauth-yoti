@@ -67,19 +67,16 @@ A call to `/auth/yoti/callback` will open the Yoti authentication page, and afte
     },
     "credentials" => {},
           "extra" => {
-                "photo" => "data:image/jpeg;base64,/9j/2wCEAAMCAg...",
-          "given_names" => "Given Name",
-          "family_name" => "Family Name",
-        "mobile_number" => "07474747474",
-        "date_of_birth" => nil,
-              "address" => nil,
-               "gender" => nil,
-          "nationality" => nil
+                "selfie" => "data:image/jpeg;base64,/9j/2wCEAAMCAg...",
+           "given_names" => "Given Name",
+           "family_name" => "Family Name",
+          "phone_number" => "07474747474",
+         "email_address" => "email@domain.com",
+         "date_of_birth" => nil,
+        "postal_address" => nil,
+                "gender" => 'MALE',
+           "nationality" => nil
     }
 }
 
 ```
-
-## License
-
-The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
