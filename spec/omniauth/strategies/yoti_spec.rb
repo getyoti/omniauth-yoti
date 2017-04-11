@@ -53,13 +53,13 @@ describe OmniAuth::Strategies::Yoti do
 
   describe '#extra' do
     context 'when using a mock request' do
-      it 'has the correct photo' do
+      it 'has the correct selfie' do
         selfie = File.read('spec/fixtures/selfie.txt', encoding: 'utf-8')
-        expect(subject.extra[:photo]).to eql(selfie)
+        expect(subject.extra[:selfie]).to eql(selfie)
       end
 
       it 'has the correct phone number' do
-        expect(subject.extra[:mobile_number]).to eql('+447474747474')
+        expect(subject.extra[:phone_number]).to eql('+447474747474')
       end
     end
 
@@ -69,7 +69,7 @@ describe OmniAuth::Strategies::Yoti do
       end
 
       it 'has the correct selfie' do
-        expect(subject.extra[:photo]).to eql('photo.png')
+        expect(subject.extra[:selfie]).to eql('selfie.png')
       end
 
       it 'has the correct given names' do
@@ -81,15 +81,19 @@ describe OmniAuth::Strategies::Yoti do
       end
 
       it 'has the correct mobile number' do
-        expect(subject.extra[:mobile_number]).to eql('07474747474')
+        expect(subject.extra[:phone_number]).to eql('07474747474')
+      end
+
+      it 'has the correct email address' do
+        expect(subject.extra[:email_address]).to eql('email@domain.com')
       end
 
       it 'has the correct date of birth' do
         expect(subject.extra[:date_of_birth]).to eql('2000.12.12')
       end
 
-      it 'has the correct address' do
-        expect(subject.extra[:address]).to eql('WC2N 4JH')
+      it 'has the correct postal address' do
+        expect(subject.extra[:postal_address]).to eql('WC2N 4JH')
       end
 
       it 'has the correct gender' do
@@ -106,12 +110,13 @@ describe OmniAuth::Strategies::Yoti do
 
   def raw_info_hash
     {
-      'selfie' => 'photo.png',
+      'selfie' => 'selfie.png',
       'given_names' => 'Given Names',
       'family_name' => 'Family Name',
       'phone_number' => '07474747474',
+      'email_address' => 'email@domain.com',
       'date_of_birth' => '2000.12.12',
-      'post_code' => 'WC2N 4JH',
+      'postal_address' => 'WC2N 4JH',
       'gender' => 'male',
       'nationality' => 'British'
     }
