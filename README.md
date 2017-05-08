@@ -36,7 +36,7 @@ Yoti client initialisation looks like this:
 require 'omniauth-yoti'
 
 Rails.application.config.middleware.use OmniAuth::Builder do
-  provider :yoti, config: [
+  provider :yoti, client_options: [
     application_id: ENV['YOTI_APPLICATION_ID'],
     client_sdk_id: ENV['YOTI_CLIENT_SDK_ID'],
     key_file_path: ENV['YOTI_KEY_FILE_PATH']
