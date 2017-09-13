@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 1.1.1 - 2017-09-13
+### Changed
+- Switched from proprietary to MIT license
+
+### Updated dependencies
+- `rake` `~> 12.1`
+- `rspec` `~> 3.6`
+- `simplecov` `~> 0.15`
+- `webmock` `~> 3.0`
+
+
 ## 1.1.0 - 2017-04-11
 Updates dependencies to the latest versions and aligns extra fields naming conventions with the Yoti attributes.
 
