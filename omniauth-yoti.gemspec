@@ -7,12 +7,12 @@ require 'omniauth/yoti/version'
 Gem::Specification.new do |spec|
   spec.name          = 'omniauth-yoti'
   spec.version       = Omniauth::Yoti::VERSION
-  spec.authors       = ['Vasile Zaremba']
+  spec.authors       = ['Sebastian Zaremba']
   spec.email         = ['tech@yoti.com']
 
   spec.summary       = 'Yoti strategy for OmniAuth'
   spec.homepage      = 'https://github.com/getyoti/omniauth-yoti'
-  spec.license       = 'Proprietary'
+  spec.license       = 'MIT'
 
   spec.files         = `git ls-files -z`.split("\x0").reject do |f|
     f.match(%r{^(test|spec|features)/})
