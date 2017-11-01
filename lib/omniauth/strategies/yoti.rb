@@ -13,7 +13,10 @@ module OmniAuth
       end
 
       uid { yoti_user_id }
-      info { { name: yoti_user_id } }
+      info {{
+        name: yoti_user_id,
+        base64_selfie_uri: base64_selfie_uri
+      }}
 
       def extra
         @raw_info ||= {
@@ -46,11 +49,16 @@ module OmniAuth
         yoti_activity_details.user_id
       end
 
+      def base64_selfie_uri
+        yoti_activity_details.base64_selfie_uri
+      end
+
       def configure_yoti_client!
         ::Yoti.configure do |config|
           config.client_sdk_id = options.client_options[:client_sdk_id]
           config.key_file_path = options.client_options[:key_file_path]
           config.key = options.client_options[:key]
+          config.sdk_identifier = 'OmniAuth'
         end
       end
 

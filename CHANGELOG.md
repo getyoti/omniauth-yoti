@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 1.1.3 - 2017-11-01
+
+### Added
+- `base64_selfie_uri` value
+
 ## 1.1.2 - 2017-10-18
 
 ## 1.1.1 - 2017-09-13
@@ -15,7 +20,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - `rspec` `~> 3.6`
 - `simplecov` `~> 0.15`
 - `webmock` `~> 3.0`
-
 
 ## 1.1.0 - 2017-04-11
 Updates dependencies to the latest versions and aligns extra fields naming conventions with the Yoti attributes.
@@ -35,7 +39,6 @@ Updates dependencies to the latest versions and aligns extra fields naming conve
 - `rspec` `~> 3.5`
 - `simplecov` `~> 0.14`
 - `webmock` `~> 2.3`
-
 
 ## 1.0.1 - 2016-11-28
 ### Added

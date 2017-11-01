@@ -46,8 +46,13 @@ describe OmniAuth::Strategies::Yoti do
   end
 
   describe '#info' do
-    it 'returns an info array' do
-      expect(subject.info).to eql(name: 'Hig2yAT79cWvseSuXcIuCLa5lNkAPy70rxetUaeHlTJGmiwc/g1MWdYWYrexWvPU')
+    it 'returns the name value' do
+      expect(subject.info[:name]).to eql('Hig2yAT79cWvseSuXcIuCLa5lNkAPy70rxetUaeHlTJGmiwc/g1MWdYWYrexWvPU')
+    end
+
+    it 'returns the base64_selfie_uri value' do
+      selfie = File.read('spec/fixtures/selfie.txt', encoding: 'utf-8')
+      expect(subject.info[:base64_selfie_uri]).to eql(selfie)
     end
   end
 
@@ -55,7 +60,7 @@ describe OmniAuth::Strategies::Yoti do
     context 'when using a mock request' do
       it 'has the correct selfie' do
         selfie = File.read('spec/fixtures/selfie.txt', encoding: 'utf-8')
-        expect(subject.extra[:selfie]).to eql(selfie)
+        expect('data:image/jpeg;base64,'.concat(Base64.strict_encode64(subject.extra[:selfie]))).to eql(selfie)
       end
 
       it 'has the correct phone number' do
