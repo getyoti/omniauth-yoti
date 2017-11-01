@@ -60,23 +60,24 @@ A call to `/auth/yoti/callback` will open the Yoti authentication page, and afte
 
 ```ruby
 {
-       "provider" => "yoti",
-            "uid" => "mHvpV4...",
-           "info" => {
-        "name" => "mHvpV4Mm+yMb..."
-    },
-    "credentials" => {},
-          "extra" => {
-                "selfie" => "data:image/jpeg;base64,/9j/2wCEAAMCAg...",
-           "given_names" => "Given Name",
-           "family_name" => "Family Name",
-          "phone_number" => "07474747474",
-         "email_address" => "email@domain.com",
-         "date_of_birth" => nil,
-        "postal_address" => nil,
-                "gender" => 'MALE',
-           "nationality" => nil
-    }
+  "provider" => "yoti",
+  "uid" => "mHvpV4...",
+  "info" => {
+              "name" => "mHvpV4Mm+yMb...",
+              "base64_selfie_uri" => "data:image/jpeg;base64,/9j/2wCEAAMCAg..."
+            },
+  "credentials" => {},
+  "extra" => {
+               "selfie" => "jpeg image file",
+               "given_names" => "Given Name",
+               "family_name" => "Family Name",
+               "phone_number" => "07474747474",
+               "email_address" => "email@example.com",
+               "date_of_birth" => nil,
+               "postal_address" => nil,
+               "gender" => 'MALE',
+               "nationality" => nil
+             }
 }
 
 ```
