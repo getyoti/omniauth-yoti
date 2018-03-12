@@ -46,13 +46,35 @@ describe OmniAuth::Strategies::Yoti do
   end
 
   describe '#info' do
-    it 'returns the name value' do
-      expect(subject.info[:name]).to eql('Hig2yAT79cWvseSuXcIuCLa5lNkAPy70rxetUaeHlTJGmiwc/g1MWdYWYrexWvPU')
+    context 'when using a mock request' do
+      it 'returns the base64_selfie_uri value' do
+        selfie = File.read('spec/fixtures/selfie.txt', encoding: 'utf-8')
+        expect(subject.info[:base64_selfie_uri]).to eql(selfie)
+      end
     end
 
-    it 'returns the base64_selfie_uri value' do
-      selfie = File.read('spec/fixtures/selfie.txt', encoding: 'utf-8')
-      expect(subject.info[:base64_selfie_uri]).to eql(selfie)
+    context 'when using a mock object' do
+      before do
+        allow(subject).to receive(:yoti_user_profile).and_return(yoti_user_profile_mock)
+        allow(subject).to receive(:base64_selfie_uri).and_return(base64_selfie_uri_mock)
+        allow(subject).to receive(:age_verified).and_return(age_verified_mock)
+      end
+
+      it 'returns the correct values' do
+        expect(subject.info[:name]).to eql('John Doe')
+        expect(subject.info[:selfie]).to eql('selfie.png')
+        expect(subject.info[:full_name]).to eql('John Doe')
+        expect(subject.info[:given_names]).to eql('John')
+        expect(subject.info[:family_name]).to eql('Doe')
+        expect(subject.info[:phone_number]).to eql('07474747474')
+        expect(subject.info[:email_address]).to eql('email@domain.com')
+        expect(subject.info[:date_of_birth]).to eql('2000.12.12')
+        expect(subject.info[:postal_address]).to eql('WC2N 4JH')
+        expect(subject.info[:gender]).to eql('male')
+        expect(subject.info[:nationality]).to eql('British')
+        expect(subject.info[:base64_selfie_uri]).to eql('data:image/jpeg;base64,/9j/2wCEAAMCAg')
+        expect(subject.info[:age_verified]).to eql(true)
+      end
     end
   end
 
@@ -60,64 +82,42 @@ describe OmniAuth::Strategies::Yoti do
     context 'when using a mock request' do
       it 'has the correct selfie' do
         selfie = File.read('spec/fixtures/selfie.txt', encoding: 'utf-8')
-        expect('data:image/jpeg;base64,'.concat(Base64.strict_encode64(subject.extra[:selfie]))).to eql(selfie)
+        expect('data:image/jpeg;base64,'.concat(Base64.strict_encode64(subject.extra[:raw_info]['selfie']))).to eql(selfie)
       end
 
       it 'has the correct phone number' do
-        expect(subject.extra[:phone_number]).to eql('+447474747474')
+        expect(subject.extra[:raw_info]['phone_number']).to eql('+447474747474')
       end
     end
 
     context 'when using a mock object' do
       before do
-        allow(subject).to receive(:yoti_user_profile).and_return(raw_info_hash)
+        allow(subject).to receive(:yoti_user_profile).and_return(yoti_user_profile_mock)
       end
 
-      it 'has the correct selfie' do
-        expect(subject.extra[:selfie]).to eql('selfie.png')
-      end
-
-      it 'has the correct given names' do
-        expect(subject.extra[:given_names]).to eql('Given Names')
-      end
-
-      it 'has the correct family name' do
-        expect(subject.extra[:family_name]).to eql('Family Name')
-      end
-
-      it 'has the correct mobile number' do
-        expect(subject.extra[:phone_number]).to eql('07474747474')
-      end
-
-      it 'has the correct email address' do
-        expect(subject.extra[:email_address]).to eql('email@domain.com')
-      end
-
-      it 'has the correct date of birth' do
-        expect(subject.extra[:date_of_birth]).to eql('2000.12.12')
-      end
-
-      it 'has the correct postal address' do
-        expect(subject.extra[:postal_address]).to eql('WC2N 4JH')
-      end
-
-      it 'has the correct gender' do
-        expect(subject.extra[:gender]).to eql('male')
-      end
-
-      it 'has the correct nationality' do
-        expect(subject.extra[:nationality]).to eql('British')
+      it 'returns the correct values' do
+        expect(subject.extra[:raw_info]['selfie']).to eql('selfie.png')
+        expect(subject.extra[:raw_info]['full_name']).to eql('John Doe')
+        expect(subject.extra[:raw_info]['given_names']).to eql('John')
+        expect(subject.extra[:raw_info]['family_name']).to eql('Doe')
+        expect(subject.extra[:raw_info]['phone_number']).to eql('07474747474')
+        expect(subject.extra[:raw_info]['email_address']).to eql('email@domain.com')
+        expect(subject.extra[:raw_info]['date_of_birth']).to eql('2000.12.12')
+        expect(subject.extra[:raw_info]['postal_address']).to eql('WC2N 4JH')
+        expect(subject.extra[:raw_info]['gender']).to eql('male')
+        expect(subject.extra[:raw_info]['nationality']).to eql('British')
       end
     end
   end
 
   private
 
-  def raw_info_hash
+  def yoti_user_profile_mock
     {
       'selfie' => 'selfie.png',
-      'given_names' => 'Given Names',
-      'family_name' => 'Family Name',
+      'full_name' => 'John Doe',
+      'given_names' => 'John',
+      'family_name' => 'Doe',
       'phone_number' => '07474747474',
       'email_address' => 'email@domain.com',
       'date_of_birth' => '2000.12.12',
@@ -125,5 +125,13 @@ describe OmniAuth::Strategies::Yoti do
       'gender' => 'male',
       'nationality' => 'British'
     }
+  end
+
+  def base64_selfie_uri_mock
+    'data:image/jpeg;base64,/9j/2wCEAAMCAg'
+  end
+
+  def age_verified_mock
+    true
   end
 end
