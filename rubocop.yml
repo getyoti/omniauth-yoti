@@ -1,7 +1,7 @@
 AllCops:
   DisplayCopNames: true
   DisplayStyleGuide: true
-  TargetRubyVersion: 2.3
+  TargetRubyVersion: 2.1.9
 
 Metrics/AbcSize:
   Max: 20
@@ -13,6 +13,9 @@ Metrics/MethodLength:
   CountComments: false
   Max: 15
 
+Metrics/BlockLength:
+  Enabled: false
+
 Style/Documentation:
   Enabled: false
 
@@ -22,5 +25,5 @@ Style/FrozenStringLiteralComment:
 Style/NumericLiterals:
   Enabled: false
 
-Style/FileName:
+Naming:
   Enabled: false

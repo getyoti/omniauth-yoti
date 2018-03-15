@@ -13,14 +13,12 @@ module OmniAuth
       end
 
       uid { yoti_user_id }
-      info {{
-        name: yoti_user_id,
-        base64_selfie_uri: base64_selfie_uri
-      }}
 
-      def extra
-        @raw_info ||= {
+      info do
+        {
+          name: yoti_user_profile['full_name'],
           selfie: yoti_user_profile['selfie'],
+          full_name: yoti_user_profile['full_name'],
           given_names: yoti_user_profile['given_names'],
           family_name: yoti_user_profile['family_name'],
           phone_number: yoti_user_profile['phone_number'],
@@ -28,8 +26,20 @@ module OmniAuth
           date_of_birth: yoti_user_profile['date_of_birth'],
           postal_address: yoti_user_profile['postal_address'],
           gender: yoti_user_profile['gender'],
-          nationality: yoti_user_profile['nationality']
+          nationality: yoti_user_profile['nationality'],
+          base64_selfie_uri: base64_selfie_uri,
+          age_verified: age_verified
         }
+      end
+
+      extra do
+        {
+          raw_info: raw_info
+        }
+      end
+
+      def raw_info
+        @raw_info ||= yoti_user_profile
       end
 
       private
@@ -51,6 +61,10 @@ module OmniAuth
 
       def base64_selfie_uri
         yoti_activity_details.base64_selfie_uri
+      end
+
+      def age_verified
+        yoti_activity_details.age_verified
       end
 
       def configure_yoti_client!

@@ -19,13 +19,13 @@ gem 'omniauth-yoti'
 And then execute:
 
 ```shell
-$ bundle
+bundle
 ```
 
 Or install it yourself as:
 
 ```shell
-$ gem install omniauth-yoti
+gem install omniauth-yoti
 ```
 
 ## Configuration
@@ -63,21 +63,42 @@ A call to `/auth/yoti/callback` will open the Yoti authentication page, and afte
   "provider" => "yoti",
   "uid" => "mHvpV4...",
   "info" => {
-              "name" => "mHvpV4Mm+yMb...",
-              "base64_selfie_uri" => "data:image/jpeg;base64,/9j/2wCEAAMCAg..."
-            },
+    "name" => "John Doe",
+    "selfie" => "jpeg image data file",
+    "full_name" => "John Doe",
+    "given_names" => "John",
+    "family_name" => "Doe",
+    "phone_number" => "07474747474",
+    "email_address" => "email@example.com",
+    "date_of_birth" => "1989-11-09",
+    "postal_address" => "Fountain House\n130 Fenchurch St\nLONDON\nEC3M 5DJ",
+    "gender" => "MALE",
+    "nationality" => "GBR"
+    "base64_selfie_uri" => "data:image/jpeg;base64,/9j/2wCEAAMCAg..."
+    "age_verified" => true
+  },
   "credentials" => {},
   "extra" => {
-               "selfie" => "jpeg image file",
-               "given_names" => "Given Name",
-               "family_name" => "Family Name",
-               "phone_number" => "07474747474",
-               "email_address" => "email@example.com",
-               "date_of_birth" => nil,
-               "postal_address" => nil,
-               "gender" => 'MALE',
-               "nationality" => nil
-             }
+    { "raw_info" =>
+      {
+        "selfie" => "jpeg image data file",
+        "full_name" => "John Doe",
+        "given_names" => "Given Name",
+        "family_name" => "Family Name",
+        "phone_number" => "07474747474",
+        "email_address" => "email@example.com",
+        "date_of_birth" => "1989-11-09",
+        "postal_address" => "Fountain House\n130 Fenchurch St\nLONDON\nEC3M 5DJ",
+        "gender" => "MALE",
+        "nationality" => "GBR",
+        "age_over:18" => true
+      }
+    }
 }
-
 ```
+
+## Upgrading from version 1.1
+
+Most of the profile attributes that were being stored in the `extra` fields got moved to `info`.
+
+e.g. `request.env['omniauth.auth']['extra']['given_names']` will become `request.env['omniauth.auth']['info']['given_names']`
