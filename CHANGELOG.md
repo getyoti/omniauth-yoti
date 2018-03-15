@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - `age_verified` returns a boolean value of the age validation
 
 ### Changed
-- Porfile attributes in the response Hash moved from `extra` to `info`. Please check [README.md](README.md#upgrading-from-version-11) for details
+- Moved the profile attributes in the response Hash  from `extra` to `info`. Please check [README.md](README.md#upgrading-from-version-11) for details.
 
 ## [1.1.3] - 2017-11-01
 ### Added
@@ -28,7 +28,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - `webmock` `~> 3.0`
 
 ## [1.1.0] - 2017-04-11
-Updates dependencies to the latest versions and aligns extra fields naming conventions with the Yoti attributes.
+Updated dependencies to the latest versions and aligns extra fields naming conventions with the Yoti attributes.
 
 ### Added
 - `email_address` field

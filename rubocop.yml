@@ -25,5 +25,5 @@ Style/FrozenStringLiteralComment:
 Style/NumericLiterals:
   Enabled: false
 
-Style/FileName:
+Naming:
   Enabled: false
